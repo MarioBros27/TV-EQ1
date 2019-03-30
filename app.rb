@@ -5,24 +5,16 @@ include CarFactory
 # Database connection
 Database.load(db_file: 'db.yml')
 
-# Which fields are available
-puts Inventory.continental_tires
-puts Inventory.michelin_tires
-puts Inventory.motors_with_turbo
-puts Inventory.motors_with_no_turbo
-puts Inventory.doors
-puts Inventory.manual_transmissions
-puts Inventory.automatic_transmissions
-
-continental = Inventory.continental_tires#7652
-michelin = Inventory.michelin_tires#2728
+continental = Inventory.continental_tires  / 4#7652
+michelin = Inventory.michelin_tires / 4#2728
 turbo = Inventory.motors_with_turbo# 7286
 no_turbo = Inventory.motors_with_no_turbo# 2647
 doors = Inventory.doors# 9241
 manual = Inventory .manual_transmissions# 8554
 automatic = Inventory.automatic_transmissions# 9513
 
-carArray = []
+
+
 
 # How to build a car object
 car1 = Car.new(
@@ -44,43 +36,26 @@ car2 = Car.new(
   doors:        3,
   style:        "Hashback"
 )
-carArray << car2
-carArray << car1
-total = 0
-temp_doors = doors
-carArray.each do |car|
-car_pieces = []
-if car.tires == "Michelin"
-  car_pieces[0] = michelin
-else
-  car_pieces[0] = continental
-end
-if car.motor == "Turbo 2.5"
-  car_pieces[1] = turbo
-else
-  car_pieces[1] = no_turbo
-end
-if car.transmission == "Manual"
-  car_pieces[2] = manual
-else
-  car_pieces[2] = automatic
-end
-car_pieces[3] = car.doors
-begin
-  car_pieces[0] -= 4
-  car_pieces[1] -= 1
-  car_pieces[2] -= 1
-  temp_doors -= car_pieces[3]
-  total+=1
-end until car_pieces[0]<=0||car_pieces[1]<=0||car_pieces[2]<=0||temp_doors<=0
-puts ""
-puts "total = #{total}"
-end
+
+n_model_2 = [michelin, no_turbo, manual, doors/car2.doors].min
+# puts "Min model 1 #{n_model_1}"
+doors = doors - (n_model_2 * car2.doors)
+# puts "Doors: #{doors}"
+n_model_1 = [continental, turbo, automatic, doors/car1.doors].min
+# puts "Min model 2 #{n_model_2}"
+
+arr = Array.new(n_model_1, car1)
+arr2 = Array.new(n_model_2, car2)
 
 result = Transport.post_result(
   team:       1,
-  total:      total,
-  #cars:       [car]
-  cars: carArray
+  total:      n_model_1,
+  cars:       arr
 )
  puts result.body.inspect
+ result2 = Transport.post_result(
+   team:       1,
+   total:      n_model_2,
+   cars:       arr2
+ )
+  puts result2.body.inspect
