@@ -14,13 +14,13 @@ puts Inventory.doors
 puts Inventory.manual_transmissions
 puts Inventory.automatic_transmissions
 
-continental = Inventory.continental_tires
-michelin = Inventory.michelin_tires
-turbo = Inventory.motors_with_turbo
-no_turbo = Inventory.motors_with_no_turbo
-doors = Inventory.doors
-manual = Inventory .manual_transmissions
-automatic = Inventory.automatic_transmissions
+continental = Inventory.continental_tires#7652
+michelin = Inventory.michelin_tires#2728
+turbo = Inventory.motors_with_turbo# 7286
+no_turbo = Inventory.motors_with_no_turbo# 2647
+doors = Inventory.doors# 9241
+manual = Inventory .manual_transmissions# 8554
+automatic = Inventory.automatic_transmissions# 9513
 
 carArray = []
 
@@ -44,8 +44,8 @@ car2 = Car.new(
   doors:        3,
   style:        "Hashback"
 )
-carArray << car1
 carArray << car2
+carArray << car1
 total = 0
 temp_doors = doors
 carArray.each do |car|
@@ -72,33 +72,33 @@ else
 end
 car_pieces[3] = car.doors
 begin
-  car_pieces[0] -= 1
+  car_pieces[0] -= 4
   car_pieces[1] -= 1
   car_pieces[2] -= 1
   temp_doors -= car_pieces[3]
   total+=1
 end until car_pieces[0]<=0||car_pieces[1]<=0||car_pieces[2]<=0||temp_doors<=0
-puts "total= "
+puts ""
+puts "total = "
 puts total
-# puts "Hello"
+
 # car_pieces.each do |piece|
 #   puts piece
-# end
-
 end
-total = 2781
-begin
+
+# end
+# total = 2781
+# begin
 # Post result to validator
 result = Transport.post_result(
   team:       1,
-  total:      total += 1,
+  total:      total,
   #cars:       [car]
   cars: carArray
 )
-puts total
-# puts result.body.inspect
 
-end until (result.body.inspect != "\"Something went wrong. Please contact your administrator \"")||total>9513
+ puts result.body.inspect
+
 
 # gem install bundler
 # bundle
