@@ -49,16 +49,11 @@ carArray << car1
 total = 0
 temp_doors = doors
 carArray.each do |car|
-# temp_doors = doors
-# car_pieces = Array.new(3)
 car_pieces = []
-# puts car.name
 if car.tires == "Michelin"
-  # puts "I'm in michelin"
   car_pieces[0] = michelin
 else
   car_pieces[0] = continental
-  # puts "I'm in continental"
 end
 if car.motor == "Turbo 2.5"
   car_pieces[1] = turbo
@@ -79,67 +74,13 @@ begin
   total+=1
 end until car_pieces[0]<=0||car_pieces[1]<=0||car_pieces[2]<=0||temp_doors<=0
 puts ""
-puts "total = "
-puts total
-
-# car_pieces.each do |piece|
-#   puts piece
+puts "total = #{total}"
 end
 
-# end
-# total = 2781
-# begin
-# Post result to validator
 result = Transport.post_result(
   team:       1,
   total:      total,
   #cars:       [car]
   cars: carArray
 )
-
  puts result.body.inspect
-
-
-# gem install bundler
-# bundle
-# bundle exec ruby app.rb
-# hay = true
-# for i in 1..5
-#   if car.tires=="Continental"
-#     if continental<=0
-#       hay = false
-#     else
-#       continental = continental-1
-#     end
-#   else
-#       if michelin<=0
-#         hay = false
-#       else
-#         micheling = michelin-1
-#   end
-#   if car.motor=="Turbo 2.5"
-#     if turbo<=0
-#       hay = false
-#     else
-#       turbo = turbo-1
-#     end
-#   else
-#       if no_turbo<=0
-#         hay = false
-#       else
-#         no_turbo= no_turbo-1
-#   end
-#   if car.transmission=="Automatic"
-#     if automatic<=0
-#       hay = false
-#     else
-#       automatic = automatic-1
-#     end
-#   else
-#       if manual<=0
-#         hay = false
-#       else
-#         manual= manual-1
-#   end
-#
-# end
